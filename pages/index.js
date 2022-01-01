@@ -78,6 +78,9 @@ const Home = ({ quote }) => {
         ></link>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <button className="quoteButton center" id="new-quote" onClick={newQuote}>
+        New Quote
+      </button>
 
       <div
         className="back"
@@ -91,37 +94,27 @@ const Home = ({ quote }) => {
               className="col-sm-8 wrapper"
               id="quote-box"
               style={{
-                backgroundColor: state.wrapperBack,
+                backgroundImage: `url(${image})`,
                 color: state.fontColor,
                 // backgroundImage: `url('${image}')`
               }}
             >
               <div className="col-sm-12 textAuth flexItem">
                 <h1 id="text">
-                  <i className="fa fa-quote-left smaller"></i>&nbsp;
+                  <i className="fa fa-quote-left  smaller"></i>&nbsp;
                   {content}
                 </h1>
 
                 <h3 id="author">
                   <Link href="/author/[name]" as={`/author/${author}`}>
                     <a>
-                      {" "}
                       <strong> - {author} -</strong>
                     </a>
                   </Link>
                 </h3>
-                <hr className="linie1" />
               </div>
 
-              <div className="col-sm-4 rightCon flexItem">
-                <button
-                  className="quoteButton"
-                  id="new-quote"
-                  onClick={newQuote}
-                >
-                  New Quote
-                </button>
-              </div>
+              <div className="col-sm-4 rightCon flexItem"></div>
             </div>
           </div>
         </div>
@@ -135,6 +128,7 @@ const Home = ({ quote }) => {
 
 Home.getInitialProps = async function () {
   const res = await fetch("https://api.quotable.io/random");
+  console.log("res", res);
   const data = await res.json();
   return {
     quote: { ...data, image: "http://picsum.photos/700/520?blur&grayscale" },
